@@ -1535,7 +1535,7 @@ class TestGetChartDataApi(BaseTestChartDataApi):
     @pytest.mark.usefixtures("load_birth_names_dashboard_with_slices")
     def test_chart_data_as_guest_user(self, is_guest_user, has_guest_access):
         """
-        Chart data API: Test response does not inlcude the SQL query for embedded
+        Chart data API: Test response includes the SQL query for embedded
         users.
         """
         g.user.rls = []
@@ -1545,8 +1545,8 @@ class TestGetChartDataApi(BaseTestChartDataApi):
         rv = self.client.post(CHART_DATA_URI, json=self.query_context_payload)
         data = json.loads(rv.data.decode("utf-8"))
         result = data["result"]
-        excluded_key = "query"
-        assert all([excluded_key not in query for query in result])  # noqa: C419
+        included_key = "query"
+        assert all([included_key in query for query in result])  # noqa: C419
 
     def test_chart_data_table_chart_with_time_grain_filter(self):
         """
