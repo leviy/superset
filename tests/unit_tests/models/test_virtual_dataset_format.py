@@ -164,6 +164,48 @@ class TestVirtualDatasetNoRLS:
         assert "::varchar(256)" in inner_sql
 
 
+class TestVirtualDatasetGuestRLSPushdown:
+    """
+    Guest RLS should not be pushed into underlying tables of virtual datasets.
+    """
+
+    @patch("superset.models.helpers.security_manager.is_guest_user", return_value=True)
+    @patch("superset.models.helpers.apply_rls", return_value=False)
+    def test_guest_user_excludes_guest_rls_from_inner_sql(
+        self,
+        mock_apply_rls: MagicMock,
+        mock_is_guest_user: MagicMock,
+        virtual_datasource: MagicMock,
+        app: Flask,
+    ) -> None:
+        original_sql = "SELECT pen_id FROM public.pens"
+        _set_virtual_sql(virtual_datasource, original_sql)
+
+        _get_subquery_sql(virtual_datasource)
+
+        assert mock_is_guest_user.called
+        assert mock_apply_rls.called
+        assert mock_apply_rls.call_args.kwargs["include_guest_rls"] is False
+
+    @patch("superset.models.helpers.security_manager.is_guest_user", return_value=False)
+    @patch("superset.models.helpers.apply_rls", return_value=False)
+    def test_non_guest_user_keeps_guest_rls_in_default_path(
+        self,
+        mock_apply_rls: MagicMock,
+        mock_is_guest_user: MagicMock,
+        virtual_datasource: MagicMock,
+        app: Flask,
+    ) -> None:
+        original_sql = "SELECT pen_id FROM public.pens"
+        _set_virtual_sql(virtual_datasource, original_sql)
+
+        _get_subquery_sql(virtual_datasource)
+
+        assert mock_is_guest_user.called
+        assert mock_apply_rls.called
+        assert mock_apply_rls.call_args.kwargs["include_guest_rls"] is True
+
+
 class TestVirtualDatasetWithRLS:
     """
     When RLS predicates are applied, the SQL must be regenerated via

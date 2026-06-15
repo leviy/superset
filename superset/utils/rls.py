@@ -34,6 +34,7 @@ def apply_rls(
     catalog: str | None,
     schema: str,
     parsed_statement: BaseSQLStatement[Any],
+    include_guest_rls: bool = True,
 ) -> bool:
     """
     Modify statement inplace to ensure RLS rules are applied.
@@ -55,6 +56,7 @@ def apply_rls(
                 table,
                 database,
                 database.get_default_catalog(),
+                include_guest_rls=include_guest_rls,
             )
             if predicate
         ]
@@ -68,6 +70,7 @@ def get_predicates_for_table(
     table: Table,
     database: Database,
     default_catalog: str | None,
+    include_guest_rls: bool = True,
 ) -> list[str]:
     """
     Get the RLS predicates for a table.
@@ -120,7 +123,8 @@ def get_predicates_for_table(
             )
         )
         for predicate in dataset.get_sqla_row_level_filters(
-            include_global_guest_rls=False
+            include_global_guest_rls=False,
+            include_guest_rls=include_guest_rls,
         )
     ]
 

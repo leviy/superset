@@ -742,6 +742,7 @@ class BaseDatasource(
         self,
         template_processor: Optional[BaseTemplateProcessor] = None,
         include_global_guest_rls: bool = True,
+        include_guest_rls: bool = True,
     ) -> list[TextClause]:
         """
         Return the appropriate row level security filters for this table and the
@@ -752,6 +753,7 @@ class BaseDatasource(
             RLS filters. Set to False for underlying tables in virtual datasets to
             prevent double application of global guest rules. Dataset-scoped guest
             rules are always included regardless of this parameter.
+        :param include_guest_rls: Whether to include guest RLS filters at all.
         :returns: A list of SQL clauses to be ANDed together.
         """
         template_processor = template_processor or self.get_template_processor()
@@ -768,7 +770,7 @@ class BaseDatasource(
                 else:
                     all_filters.append(clause)
 
-            if is_feature_enabled("EMBEDDED_SUPERSET"):
+            if is_feature_enabled("EMBEDDED_SUPERSET") and include_guest_rls:
                 for rule in security_manager.get_guest_rls_filters(self):
                     if not include_global_guest_rls and not rule.get("dataset"):
                         continue

@@ -63,7 +63,7 @@ from sqlalchemy.sql.expression import Label, Select, TextAsFrom
 from sqlalchemy.sql.selectable import Alias, TableClause
 from sqlalchemy_utils import UUIDType
 
-from superset import db, is_feature_enabled
+from superset import db, is_feature_enabled, security_manager
 from superset.advanced_data_type.types import AdvancedDataTypeResponse
 from superset.common.db_query_status import QueryStatus
 from superset.common.utils import dataframe_utils
@@ -908,6 +908,7 @@ class ExploreMixin:  # pylint: disable=too-many-public-methods
         self,
         template_processor: Optional[BaseTemplateProcessor] = None,  # pylint: disable=unused-argument
         include_global_guest_rls: bool = True,  # pylint: disable=unused-argument
+        include_guest_rls: bool = True,  # pylint: disable=unused-argument
     ) -> list[TextClause]:
         # TODO: We should refactor this mixin and remove this method
         # as it exists in the BaseDatasource and is not applicable
@@ -2060,6 +2061,7 @@ class ExploreMixin:  # pylint: disable=too-many-public-methods
                         self.catalog,
                         self.schema or default_schema or "",
                         statement,
+                        include_guest_rls=not security_manager.is_guest_user(),
                     ):
                         rls_applied = True
 
