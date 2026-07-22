@@ -16718,9 +16718,8 @@ msgstr "بكسل"
 msgid "previous calendar month"
 msgstr "الشهر التقويمي السابق"
 
-#, fuzzy
 msgid "previous calendar quarter"
-msgstr "السنة التقويمية السابقة"
+msgstr "الربع التقويمي السابق"
 
 msgid "previous calendar week"
 msgstr "الأسبوع التقويمي السابق"

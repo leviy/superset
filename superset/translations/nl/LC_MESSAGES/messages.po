@@ -16970,9 +16970,8 @@ msgstr "pixels"
 msgid "previous calendar month"
 msgstr "vorige kalendermaand"
 
-#, fuzzy
 msgid "previous calendar quarter"
-msgstr "vorig kalenderjaar"
+msgstr "vorig kalenderkwartaal"
 
 msgid "previous calendar week"
 msgstr "vorige kalenderweek"

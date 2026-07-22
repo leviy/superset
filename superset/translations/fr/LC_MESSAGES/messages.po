@@ -18158,9 +18158,8 @@ msgstr "pixels"
 msgid "previous calendar month"
 msgstr "mois calendaire précédent"
 
-#, fuzzy
 msgid "previous calendar quarter"
-msgstr "année calendaire précédente"
+msgstr "trimestre calendaire précédent"
 
 msgid "previous calendar week"
 msgstr "semaine calendaire précédente"
