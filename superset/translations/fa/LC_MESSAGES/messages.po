@@ -16693,9 +16693,8 @@ msgstr "پیکسل‌ها"
 msgid "previous calendar month"
 msgstr "ماه تقویمی گذشته"
 
-#, fuzzy
 msgid "previous calendar quarter"
-msgstr "سال تقویمی گذشته"
+msgstr "سه‌ماهه تقویمی گذشته"
 
 msgid "previous calendar week"
 msgstr "هفته تقویمی قبلی"

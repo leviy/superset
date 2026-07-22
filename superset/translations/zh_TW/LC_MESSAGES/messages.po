@@ -16637,9 +16637,8 @@ msgstr "像素"
 msgid "previous calendar month"
 msgstr "前一月"
 
-#, fuzzy
 msgid "previous calendar quarter"
-msgstr "前一年"
+msgstr "前一季"
 
 msgid "previous calendar week"
 msgstr "前一週"

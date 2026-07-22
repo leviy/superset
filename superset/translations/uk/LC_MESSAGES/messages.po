@@ -16948,9 +16948,8 @@ msgstr "Пікселі"
 msgid "previous calendar month"
 msgstr "попередній календарний місяць"
 
-#, fuzzy
 msgid "previous calendar quarter"
-msgstr "попередній календарний рік"
+msgstr "попередній календарний квартал"
 
 msgid "previous calendar week"
 msgstr "попередній календарний тиждень"

@@ -16722,9 +16722,8 @@ msgstr "piksli"
 msgid "previous calendar month"
 msgstr "prejšnji koledarski mesec"
 
-#, fuzzy
 msgid "previous calendar quarter"
-msgstr "prejšnje koledarsko leto"
+msgstr "prejšnje koledarsko četrtletje"
 
 msgid "previous calendar week"
 msgstr "prejšnji koledarski teden"
